@@ -1,14 +1,14 @@
-import { createApp } from 'vue'
-import App from './App.vue'
-import router from './router'
-import store from './store'
+import Vue from 'vue';
+import App from './App.vue';
 import vuetify from './plugins/vuetify'
-import { loadFonts } from './plugins/webfontloader'
+import router from './router/index'
+import mavonEditor from 'mavon-editor'
+import 'mavon-editor/dist/css/index.css'
 
-loadFonts()
-
-createApp(App)
-  .use(router)
-  .use(store)
-  .use(vuetify)
-  .mount('#app')
+Vue.config.productionTip = true;
+Vue.use(mavonEditor)
+new Vue({
+    vuetify,
+    router,
+    render: h => h(App)
+}).$mount('#app');
