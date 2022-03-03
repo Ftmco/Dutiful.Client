@@ -85,7 +85,9 @@ import { convertToBase64File, createFileAddress } from "@/services/file";
 import Vue from "vue";
 import { FileModel } from "@/api/models/application.model";
 import { cacheData } from "@/cache/CacheService";
-import dragscroll from "@/services/dragscroll";
+import { getProfile } from "fteam.identity.package/src/Account/profile";
+import { application } from "@/constants";
+import { changeBaseUrl } from "fteam.identity.package/src/constants";
 export default Vue.extend({
   data: () => ({
     profileService: new ProfileService(apiCall),
@@ -98,17 +100,16 @@ export default Vue.extend({
   },
   methods: {
     getProfile() {
-      this.profileService
-        .getProfile()
-        .then((res) => {
-          if (res.status) {
-            this.profile = res.result;
+      getProfile(application)
+        .then((res: any) => {
+          if (res.Status) {
+            this.profile = res.Result;
             this.imgSrc = createFileAddress((this.profile as any).image.pop());
           }
-          showMessage(this, res.title);
+          showMessage(this, res.Title);
         })
         .catch((e) => {
-          showMessage(this, e.message);
+          showMessage(this, e.Title);
         });
     },
     selectProfile(e: any) {

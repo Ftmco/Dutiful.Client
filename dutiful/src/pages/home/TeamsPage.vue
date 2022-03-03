@@ -11,6 +11,11 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-export default Vue.extend({});
+import { defineComponent, ref } from "@vue/composition-api";
+
+export default defineComponent({
+  setup() {
+    
+  },
+});
 </script>

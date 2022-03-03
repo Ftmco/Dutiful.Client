@@ -16,7 +16,7 @@
     <template v-slot:form>
       <v-form ref="loginForm">
         <v-text-field
-          v-model="login.userName"
+          v-model="loginModel.userName"
           :rules="[rules.require]"
           outlined
           clearable
@@ -26,7 +26,7 @@
         ></v-text-field>
 
         <v-text-field
-          v-model="login.password"
+          v-model="loginModel.password"
           :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
           :type="show ? 'text' : 'password'"
           :rules="[rules.require, rules.password]"
@@ -69,16 +69,18 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { messages, rules } from "@/constants";
+import { application, messages, rules } from "@/constants";
 import AccountServiec from "@/api/service/account.service";
 import { apiCall } from "@/api";
 import AccountBase from "@/components/account/AccountBase.vue";
-import { showMessage } from "@/services/message";
+import { loading, showMessage } from "@/services/message";
+import { login } from "fteam.identity.package/src/Account/account";
+import { changeBaseUrl } from "fteam.identity.package/src/constants";
 
 export default Vue.extend({
   components: { AccountBase },
   data: () => ({
-    login: {
+    loginModel: {
       userName: "",
       password: "",
     },
@@ -87,20 +89,27 @@ export default Vue.extend({
     accountService: new AccountServiec(apiCall),
   }),
   mounted() {
-    this.login.userName = this.$route.query.userName?.toString();
+    this.loginModel.userName = this.$route.query.userName?.toString();
   },
   methods: {
     loginSubmit() {
       let isValid = (this.$refs.loginForm as any).validate();
       if (isValid) {
-        this.accountService
-          .Login(this.login)
-          .then((res) => {
-            if (res.status) (window.location as any) = "/tabs/settings";
-            showMessage(this, res.title);
+        loading(this);
+        login({
+          ...this.loginModel,
+          application: application,
+        })
+          .then((res: any) => {
+            if (res.Status) {
+              localStorage.setItem("sessionKey", res.Result.Key);
+              localStorage.setItem(res.Result.Key, res.Result.Value);
+              (window.location as any) = "/tabs/settings";
+            }
+            showMessage(this, res.Title);
           })
-          .catch((e) => {
-            showMessage(this, messages.netWorkError(e.message).title);
+          .catch((e: any) => {
+            showMessage(this, e.Title);
           });
       } else showMessage(this, messages.invalidForm);
     },

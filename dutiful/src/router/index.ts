@@ -49,7 +49,16 @@ const routes: RouteConfig[] = [
                     middleware: auth,
                     route
                 })
-            },
+            }, {
+                path: 'projects',
+                name: 'Projects',
+                component: () => import("@/pages/home/ProjectsPage.vue"),
+                meta: (route: Route) => ({
+                    title: 'Projects',
+                    middleware: auth,
+                    route
+                })
+            }
         ]
     }, {
         path: '/account/login',

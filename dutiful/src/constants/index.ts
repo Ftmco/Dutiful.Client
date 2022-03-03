@@ -107,4 +107,7 @@ export const channelItems = [
     }
 ]
 
-
+export const application = {
+    apiKey: "f7f2c8d20cd41269d3eb8b2d9a8761a2275c9386ede336e2f03f7ab83dab81c6",
+    password: "123456",
+}

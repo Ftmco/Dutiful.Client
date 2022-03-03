@@ -67,7 +67,7 @@
       </v-form>
     </template>
     <template v-slot:actions>
-      <v-btn color="primary" block @click="register"> Register </v-btn>
+      <v-btn color="primary" block @click="registerSubmit"> Register </v-btn>
       <br />
       <v-row>
         <v-col>
@@ -97,6 +97,8 @@ import { messages, rules } from "@/constants";
 import AccountServiec from "@/api/service/account.service";
 import { apiCall } from "@/api";
 import { showMessage } from "@/services/message";
+import { register } from "fteam.identity.package/src/Account/account";
+import { changeBaseUrl } from "fteam.identity.package/src/constants/index";
 export default Vue.extend({
   data: () => ({
     signUpModel: {
@@ -114,30 +116,29 @@ export default Vue.extend({
     AccountBase,
   },
   methods: {
-    register() {
+    registerSubmit() {
       let isValid = (this.$refs.signUpForm as any).validate();
       if (isValid) {
-        (this.$root.$refs.loading as any).open();
-        this.accountService
-          .SignUp({
-            userName: this.signUpModel.userName,
-            fullName: this.signUpModel.userName,
-            password: this.signUpModel.password,
-            email: this.signUpModel.email,
-            phoneNumber: this.signUpModel.mobileNo,
+        changeBaseUrl("https://localhost:7130");
+        register({
+          userName: this.signUpModel.userName,
+          fullName: this.signUpModel.userName,
+          password: this.signUpModel.password,
+          email: this.signUpModel.email,
+          mobileNo: this.signUpModel.mobileNo,
+          application: {
+            apiKey:
+              "f7f2c8d20cd41269d3eb8b2d9a8761a2275c9386ede336e2f03f7ab83dab81c6",
+            password: "123456",
+          },
+        })
+          .then((res: any) => {
+            showMessage(this, res.title);
           })
-          .then((res) => {
-            if (res.status)
-              this.$router.push({
-                name: "Login",
-                query: { userName: this.signUpModel.userName },
-              });
-            showMessage(this,res.title);
-          })
-          .catch((e) => {
-            showMessage(this,messages.netWorkError(e.message).title);
+          .catch((e: any) => {
+            showMessage(this, e.meesage);
           });
-      } else showMessage(this,messages.invalidForm);
+      } else showMessage(this, messages.invalidForm);
     },
   },
 });

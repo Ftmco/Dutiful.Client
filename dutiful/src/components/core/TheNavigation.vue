@@ -63,12 +63,13 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { navigationItems } from "@/constants/";
+import { application, navigationItems } from "@/constants/";
 import Account from "@/services/account";
 import AccountServiec from "@/api/service/account.service";
 import { apiCall } from "@/api";
 import ProfileService from "@/api/service/profile.service";
 import { createFileAddress } from "@/services/file";
+import { getProfile } from "fteam.identity.package/src/Account/profile";
 
 export default Vue.extend({
   data: () => ({
@@ -95,10 +96,10 @@ export default Vue.extend({
     getUser() {
       let currentUserAuthenticated = Account.isAuthenticated();
       if (currentUserAuthenticated) {
-        this.profileService.getProfile().then((res) => {
+        getProfile(application).then((res: any) => {
           if (res.status) {
             this.user.isAuthenticated = true;
-            this.user.profile = res.result;
+            this.user.profile = res.Result;
           }
         });
       }
