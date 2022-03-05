@@ -1,9 +1,9 @@
 <template>
-  <v-navigation-drawer v-model="drawer" fixed temporary>
+  <v-navigation-drawer app v-model="drawer" fixed temporary>
     <v-list nav dense>
       <v-list-item-group v-model="group" active-class="text--accent-4">
         <v-list-item :to="{ name: 'Settings' }" v-if="user.isAuthenticated">
-          <v-col align="center">
+          <v-col align="left">
             <v-list-item-avatar size="100" color="grey">
               <v-img
                 v-if="user.profile.image != null"
@@ -14,10 +14,10 @@
             <v-list-item>
               <v-list-item-content>
                 <v-list-item-title class="text-h6">
-                  {{ user.profile.fullName }}
+                  {{ user.profile.User.FullName }}
                 </v-list-item-title>
                 <v-list-item-subtitle>{{
-                  user.profile.email || user.profile.mobileNo
+                  user.profile.User.Email || user.profile.User.MobileNo
                 }}</v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
@@ -76,7 +76,11 @@ export default Vue.extend({
     drawer: false,
     user: {
       isAuthenticated: Account.isAuthenticated(),
-      profile: {},
+      profile: {
+        Image: "",
+        Json: "",
+        User: {},
+      },
     },
     items: navigationItems,
     group: null,
@@ -97,7 +101,7 @@ export default Vue.extend({
       let currentUserAuthenticated = Account.isAuthenticated();
       if (currentUserAuthenticated) {
         getProfile(application).then((res: any) => {
-          if (res.status) {
+          if (res.Status) {
             this.user.isAuthenticated = true;
             this.user.profile = res.Result;
           }

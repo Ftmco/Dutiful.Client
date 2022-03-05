@@ -19,10 +19,10 @@
           <v-list-item>
             <v-list-item-content>
               <v-list-item-title class="text-h6">
-                {{ profile.fullName }}
+                {{ profile.User.FullName }}
               </v-list-item-title>
               <v-list-item-subtitle>{{
-                profile.email || profile.mobileNo
+                profile.User.Email || profile.User.MobileNo
               }}</v-list-item-subtitle>
               <v-btn
                 class="col-md-3"
@@ -40,7 +40,7 @@
       <v-row>
         <v-col cols="12" md="6">
           <v-text-field
-            v-model="profile.userName"
+            v-model="profile.User.UserName"
             :clearable="inEdit"
             outlined
             label="User Name"
@@ -49,7 +49,7 @@
         /></v-col>
         <v-col cols="12" md="6">
           <v-text-field
-            v-model="profile.email"
+            v-model="profile.User.Email"
             outlined
             label="E-main"
             placeholder="E-mail"
@@ -57,7 +57,7 @@
         /></v-col>
         <v-col cols="12" md="6">
           <v-text-field
-            v-model="profile.mobileNo"
+            v-model="profile.User.MobileNo"
             outlined
             label="Mobile"
             placeholder="Mobile"
@@ -65,7 +65,7 @@
         /></v-col>
         <v-col cols="12" md="6">
           <v-text-field
-            v-model="profile.fullName"
+            v-model="profile.User.FullName"
             outlined
             :clearable="inEdit"
             label="Full Name"
@@ -91,7 +91,11 @@ import { changeBaseUrl } from "fteam.identity.package/src/constants";
 export default Vue.extend({
   data: () => ({
     profileService: new ProfileService(apiCall),
-    profile: {},
+    profile: {
+      Image: "",
+      Json: "",
+      User: {},
+    },
     imgSrc: "",
     inEdit: false,
   }),
