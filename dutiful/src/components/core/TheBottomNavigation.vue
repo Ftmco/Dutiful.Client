@@ -7,7 +7,12 @@
     grow
     color="primary"
   >
-    <v-btn v-for="item in items" :key="item.id" :to="item.to">
+    <v-btn
+      v-for="(item, i) in items"
+      :value="item.title"
+      :key="i"
+      :to="item.to"
+    >
       <span>{{ item.title }}</span>
 
       <v-icon>{{ item.icon }}</v-icon>
@@ -20,8 +25,13 @@ import Vue from "vue";
 import { bottomItems } from "@/constants/";
 
 export default Vue.extend({
+  watch: {
+    $route() {
+      this.page = this.$route.name ?? "Home";
+    },
+  },
   data: () => ({
-    page: 0,
+    page: "Home",
     show: false,
     items: bottomItems,
   }),

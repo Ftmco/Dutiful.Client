@@ -24,6 +24,7 @@ const routes: RouteConfig[] = [
         children: [
             {
                 path: 'home',
+                name:'Home',
                 component: () => import("@/pages/home/HomePage.vue"),
                 meta: (route: Route) => ({
                     title: 'Home',
@@ -32,6 +33,7 @@ const routes: RouteConfig[] = [
             },
             {
                 path: 'teams',
+                name:'Teams',
                 component: () => import("@/pages/home/TeamsPage.vue"),
                 meta: (route: Route) => ({
                     title: 'Teams',

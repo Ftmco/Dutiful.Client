@@ -6,10 +6,9 @@
       :fullscreen="fullscreen"
       max-width="800px"
       persistent
-      scrollable
     >
       <v-card v-if="dialog">
-        <v-toolbar   :color="titleColor" dark>
+        <v-toolbar elevation="4" :color="titleColor" dark>
           {{ title }}
           <v-spacer></v-spacer>
           <v-btn icon @click="dialog = false">

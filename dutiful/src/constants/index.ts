@@ -30,23 +30,20 @@ export const navigationItems = [
         title: 'Home',
         icon: 'mdi-home',
         to: '/tabs/home'
-    },
-    {
-        id: 2,
+    }, {
+        id: 1,
         title: 'Teams',
         icon: 'mdi-account-multiple',
         to: '/tabs/teams'
-    },
-    {
-        id: 3,
+    }, {
+        id: 2,
         title: 'Projects',
         icon: 'mdi-animation',
         to: '/tabs/projects'
-    },
-    {
-        id: 4,
+    }, {
+        id: 3,
         title: 'Settings',
-        icon: 'mdi-wrench',
+        icon: 'mdi-cog',
         to: '/tabs/settings'
     }
 ]
