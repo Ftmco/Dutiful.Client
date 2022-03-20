@@ -9,7 +9,7 @@ import { changeTitle } from '@/services/title';
 
 Vue.use(VueRouter)
 
-const routes: RouteConfig[] = [
+const routes: Array<RouteConfig> = [
     {
         path: '/',
         redirect: '/tabs/home'
@@ -24,7 +24,7 @@ const routes: RouteConfig[] = [
         children: [
             {
                 path: 'home',
-                name:'Home',
+                name: 'Home',
                 component: () => import("@/pages/home/HomePage.vue"),
                 meta: (route: Route) => ({
                     title: 'Home',
@@ -33,14 +33,33 @@ const routes: RouteConfig[] = [
             },
             {
                 path: 'teams',
-                name:'Teams',
+                name: 'Teams',
                 component: () => import("@/pages/home/TeamsPage.vue"),
                 meta: (route: Route) => ({
                     title: 'Teams',
                     middleware: auth,
                     route
-                })
-
+                }),
+                children: [
+                    {
+                        path:"",
+                        name: "TeamList",
+                        component: () => import("@/pages/team/TeamList.vue"),
+                        meta: (route: Route) => ({
+                            title: 'Teams',
+                            route
+                        })
+                    },
+                    {
+                        path: "team",
+                        name: "Team",
+                        component: () => import("@/pages/team/Team.vue"),
+                        meta: (route: Route) => ({
+                            title: route.query.name.toString() ?? "",
+                            route
+                        })
+                    }
+                ]
             },
             {
                 path: 'settings',
