@@ -1,4 +1,4 @@
-export const baseUrl = "http://192.168.43.198:5085/"
+export const baseUrl = "https://localhost:7080/"
 
 export const bottomItems = [
     {
