@@ -5,7 +5,7 @@ import { baseUrl } from '@/constants';
 
 const _headers: AxiosRequestHeaders = {
     "Content-Type": "application/json",
-    "Token": Account.authenticationToken(),
+    "I-Authentication": Account.authenticationToken(),
     "Connection": "keep-alive"
 }
 
