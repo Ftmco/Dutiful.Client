@@ -33,7 +33,7 @@ const routes: Array<RouteConfig> = [
             },
             {
                 path: 'teams',
-                name: 'Teams',
+                name: '',
                 component: () => import("@/pages/home/TeamsPage.vue"),
                 meta: (route: Route) => ({
                     title: 'Teams',
@@ -43,7 +43,7 @@ const routes: Array<RouteConfig> = [
                 children: [
                     {
                         path:"",
-                        name: "TeamList",
+                        name: "Teams",
                         component: () => import("@/pages/team/TeamList.vue"),
                         meta: (route: Route) => ({
                             title: 'Teams',
