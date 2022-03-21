@@ -21,7 +21,7 @@ export default Vue.extend({
   mounted() {
     const theme = localStorage.getItem("theme");
     this.$vuetify.theme.dark = theme == "Dark";
-    changeBaseUrl("http://192.168.43.198:5031");
+    changeBaseUrl("http://localhost:5130");
   },
 });
 </script>
